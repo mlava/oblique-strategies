@@ -49,16 +49,14 @@ export default {
 }
 
 async function fetchOblStrat(edition) {
-  console.info(edition);
   var string = "";
   var length = osJSON[edition].length + 1;
   var selection = Math.floor(Math.random() * length);
 
-  console.info(osJSON[edition][selection]);
   string += osJSON[edition][selection];
   iziToast.show({
     id: null,
-    class: '',
+    class: 'oblStr',
     title: '',
     titleColor: '',
     titleSize: '',
