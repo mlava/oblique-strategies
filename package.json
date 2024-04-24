@@ -4,13 +4,13 @@
   "description": "Use Oblique Strategies to overcome creative block, right within Roam Research",
   "main": "extension.js",
   "scripts": {
-	  "build": "webpack"
+    "build": "webpack"
   },
   "author": "Mark Lavercombe",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^5.82.1",
-    "webpack-cli": "^5.1.1"
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "izitoast": "^1.4.0"
