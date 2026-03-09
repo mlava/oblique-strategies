@@ -43,17 +43,47 @@ export default {
       }
     });
 
+    window.RoamExtensionTools = window.RoamExtensionTools || {};
+    window.RoamExtensionTools["oblique-strategies"] = {
+      name: "Oblique Strategies",
+      version: "1.0",
+      tools: [
+        {
+          name: "os_random_strategy",
+          description: "Return a random Oblique Strategy — a lateral-thinking prompt from Brian Eno and Peter Schmidt's card deck.",
+          parameters: {
+            type: "object",
+            properties: {
+              edition: {
+                type: "string",
+                enum: ["combined", "1", "2", "3", "4", "5"],
+                description: "Card deck edition. Default: combined (all editions merged)."
+              }
+            }
+          },
+          execute: async ({ edition } = {}) => {
+            const strategy = getRandomStrategy(edition || "combined");
+            if (!strategy) return { error: "No strategies found for the requested edition." };
+            return { strategy };
+          }
+        }
+      ]
+    };
+
   },
   onunload: () => {
+    delete window.RoamExtensionTools?.["oblique-strategies"];
   }
 }
 
-async function fetchOblStrat(edition) {
-  var string = "";
-  var length = osJSON[edition].length + 1;
-  var selection = Math.floor(Math.random() * length);
+function getRandomStrategy(edition) {
+  const deck = osJSON[edition || "combined"];
+  if (!deck || !deck.length) return null;
+  return deck[Math.floor(Math.random() * deck.length)];
+}
 
-  string += osJSON[edition][selection];
+async function fetchOblStrat(edition) {
+  var string = getRandomStrategy(edition) || "";
   iziToast.show({
     id: null,
     class: 'oblStr',
